@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dRessRoom</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Светло-серый фон */
+        }
+        .header {
+            background-color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Расположение заголовка и корзины */
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .search-bar {
+            flex-grow: 1; /* Строка поиска занимает все доступное место */
+            margin: 0 20px; /* Отступы от краев */
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+            grid-gap: 10px;
+            padding: 10px;
+        }
+        .product-card {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .radio-buttons {
+            margin-top: 10px;
+        }
+        .cart-icon { /* Стили для иконки корзины */
+            cursor: pointer;
+        }
+        .cart-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        .cart-popup { /* Стили для всплывающего окна корзины */
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none; /* Скрыто по умолчанию */
+        }
+        .cart-popup.show {
+            display: block; /* Показываем при нажатии */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>dRessRoom</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск...">
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+            <img src="cart_icon.png" alt="Корзина"> <!-- Замените на путь к вашей иконке -->
+        </div>
+        <div class="cart-popup" id="cart-popup">
+            <p>Вы добавили товар в корзину!</p>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="img_for_site/IMG_2818.JPG">
+            <h3>Товар 1</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2823.JPG" alt="Товар 2">
+            <h3>Товар 2</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2825.JPG" alt="Товар 3">
+            <h3>Товар 3</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2828.JPG" alt="Товар 4">
+            <h3>Товар 4</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2829.JPG" alt="Товар 5">
+            <h3>Товар 5</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2832.JPG" alt="Товар 6">
+            <h3>Товар 6</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2834.JPG" alt="Товар 7">
+            <h3>Товар 7</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2838.JPG" alt="Товар 8">
+            <h3>Товар 8</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2841.JPG" alt="Товар 9">
+            <h3>Товар 9</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2847.JPG" alt="Товар 10">
+            <h3>Товар 10</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2851.JPG" alt="Товар 11">
+            <h3>Товар 11</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2852.JPG" alt="Товар 12">
+            <h3>Товар 12</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2860.JPG" alt="Товар 13">
+            <h3>Товар 13</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2865.JPG" alt="Товар 14">
+            <h3>Товар 14</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2868.JPG" alt="Товар 15">
+            <h3>Товар 15</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2869.JPG" alt="Товар 16">
+            <h3>Товар 16</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2882.JPG" alt="Товар 17">
+            <h3>Товар 17</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2885.JPG" alt="Товар 18">
+            <h3>Товар 18</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2886.JPG" alt="Товар 19">
+            <h3>Товар 19</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+        <div class="product-card">
+            <img src="img_for_site/IMG_2887.JPG" alt="Товар 20">
+            <h3>Товар 20</h3>
+            <div class="radio-buttons">
+                <label><input type="radio" name="size1" value="45">45</label>
+                <label><input type="radio" name="size1" value="46">46</label>
+                <label><input type="radio" name="size1" value="47">47</label>
+                <label><input type="radio" name="size1" value="48">48</label>
+                <label><input type="radio" name="size1" value="49">49</label>
+                <label><input type="radio" name="size1" value="50">50</label>
+            </div>
+            <button>Добавить</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleCart() {
+            document.getElementById('cart-popup').classList.toggle('show');
+    </script>
+</body>
+</html>
